@@ -8,6 +8,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.GridLayout;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     SensorManager sensorManager;
     TextView textView1,textView2;
     GridLayout gridLayout;
+    MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         gridLayout=findViewById(R.id.gridLayout);
         textView1=findViewById(R.id.textView);
         textView2=findViewById(R.id.textView2);
+        mediaPlayer=MediaPlayer.create(this,R.raw.qotsa);
+
 
         List<Sensor> lista = sensorManager.getSensorList(Sensor.TYPE_ALL);
         sensorManager.registerListener( this, sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY), sensorManager.SENSOR_DELAY_NORMAL);
@@ -38,11 +43,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
            if(event.values[0]==0){
                Random rand = new Random();
-               float r = rand.nextFloat();
-               float g = rand.nextFloat();
-               float b = rand.nextFloat();
-               Color randomColor = new Color(r, g, b);
-              gridLayout.setBackgroundColor(Color.BLUE);
+               int r = rand.nextInt();
+
+              gridLayout.setBackgroundColor(r);
            }
            else{
                gridLayout.setBackgroundColor(Color.WHITE);
